@@ -27,14 +27,14 @@ functions:
       - http: 
           path: api/auth/signin
           method: post
-  # listCandidates:
-  #   handler: api/candidate.list
-  #   memorySize: 128
-  #   description: List all candidates
-  #   events:
-  #     - http: 
-  #         path: candidates
-  #         method: get 
+  signUpUser:
+    handler: api/auth.signup
+    memorySize: 128
+    description: User Account creation
+    events:
+      - http: 
+          path: api/auth/signup
+          method: post 
 
   # candidateDetails:
   #   handler: api/candidate.get
