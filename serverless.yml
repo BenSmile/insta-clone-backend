@@ -67,8 +67,11 @@ resources:
           - AttributeName: "username"
             KeyType: "HASH"
           - AttributeName: "password"
+            KeyType: "RANGE"
           - AttributeName: "fullName"
+            KeyType: "RANGE"
           - AttributeName: "bithday"
+            KeyType: "RANGE"
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
