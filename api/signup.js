@@ -5,19 +5,31 @@ const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, callback) => {
+  if (!event.body) {
+    const rep = {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Empty body",
+      }),
+    };
+    return rep;
+  }
+
   const requestBody = JSON.parse(event.body);
   const fullname = requestBody.fullname;
   const email = requestBody.email;
   const password = requestBody.password;
   const username = requestBody.username;
   const birthday = requestBody.bithday;
+  const phone = requestBody.phone;
 
   if (
     typeof fullname !== "string" ||
     typeof email !== "string" ||
     typeof password !== "string" ||
     typeof birthday !== "string" ||
-    typeof username !== "string"
+    typeof username !== "string" ||
+    typeof phone !== "string"
   ) {
     console.error("Validation Failed");
     callback(new Error("Validation errors."));
