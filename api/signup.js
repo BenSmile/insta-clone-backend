@@ -4,7 +4,7 @@ const AWS = require("aws-sdk");
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.handler = (event, callback) => {
+module.exports.handler = async (event, callback) => {
   if (!event.body) {
     const rep = {
       statusCode: 400,
