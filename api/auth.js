@@ -66,7 +66,7 @@ module.exports.signup = (event, callback) => {
   ) {
     console.error("Validation Failed");
     callback(
-      new Error("Couldn't submit candidate because of validation errors.")
+      new Error("Validation errors.")
     );
     return;
   }
