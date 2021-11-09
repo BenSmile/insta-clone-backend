@@ -1,0 +1,68 @@
+service: insta-clone-service
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-2
+
+  environment:
+    USER_TABLE: "users-${opt:stage, self:provider.stage}"
+    POST_TABLE: "posts-${opt:stage, self:provider.stage}"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: "*"
+
+functions:
+  candidateSubmission:
+    handler: api/auth.signin
+    memorySize: 128
+    description: Sigin user
+    events:
+      - http: 
+          path: api/auth/signin
+          method: get
+  # listCandidates:
+  #   handler: api/candidate.list
+  #   memorySize: 128
+  #   description: List all candidates
+  #   events:
+  #     - http: 
+  #         path: candidates
+  #         method: get 
+
+  # candidateDetails:
+  #   handler: api/candidate.get
+  #   events:
+  #     - http:
+  #         path: candidates/{id}
+  #         method: get
+
+# resources:
+#   Resources:
+#     UsersDynamoDbTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       TableName: ${self:provider.environment.USER_TABLE}
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           - AttributeName: "id"
+#             AttributeType: "S" 
+#           - AttributeName: "username"
+#             AttributeType: "S"  
+#           - AttributeName: "password"
+#             AttributeType: "S" 
+#         KeySchema:
+#           - AttributeName: "id"
+#             KeyType: "HASH"
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         StreamSpecification:
+#           StreamViewType: "NEW_AND_OLD_IMAGES"
+        
