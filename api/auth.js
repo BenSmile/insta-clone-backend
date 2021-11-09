@@ -7,7 +7,7 @@ AWS.config.setPromisesDependency(require("bluebird"));
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.signin = (event, callback) => {
+module.exports.signin =  async (event, callback) => {
   const rep = {
     statusCode: 200,
     body: JSON.stringify({
