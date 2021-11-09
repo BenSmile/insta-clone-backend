@@ -8,10 +8,11 @@ AWS.config.setPromisesDependency(require("bluebird"));
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.signin = (event, callback) => {
-  return callback(null, {
+  const rep = {
     statusCode: 200,
     body: JSON.stringify({
-      message: "Hello to VDC app",
+      message: "Hello to Insta clone",
     }),
-  });
+  };
+  return rep;
 };
