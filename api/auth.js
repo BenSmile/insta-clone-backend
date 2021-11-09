@@ -7,10 +7,30 @@ AWS.config.setPromisesDependency(require("bluebird"));
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.signin = (event, callback) => {
+module.exports.signin = async (event, callback) => {
+  if (!event.body) {
+    const rep = {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Username and password are required",
+      }),
+    };
+    return rep;
+  }
+
   const requestBody = JSON.parse(event.body);
   const username = requestBody.username;
   const password = requestBody.password;
+
+  if (!event.body) {
+    const rep = {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Username and password are required",
+      }),
+    };
+    return rep;
+  }
 
   if (typeof username !== "string" || typeof password !== "string") {
     console.error("Validation Failed");
@@ -32,23 +52,7 @@ module.exports.signin = (event, callback) => {
 
   const result = await dynamoDb.get(params);
 
-  console.log(result);
-
-  //   dynamoDb
-  //     .get(params)
-  //     .promise()
-  //     .then((result) => {
-  //       const response = {
-  //         statusCode: 200,
-  //         body: JSON.stringify(result.Item),
-  //       };
-  //       callback(null, response);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       callback(new Error("Invalid credentials."));
-  //       return;
-  //     });
+  console.log('item = ',result?.Item);
 };
 
 module.exports.signup = (event, callback) => {
@@ -56,21 +60,22 @@ module.exports.signup = (event, callback) => {
   const fullname = requestBody.fullname;
   const email = requestBody.email;
   const password = requestBody.password;
-  const bithday = requestBody.bithday;
+  const username = requestBody.username;
+  const birthday = requestBody.bithday;
 
   if (
     typeof fullname !== "string" ||
     typeof email !== "string" ||
     typeof password !== "string" ||
-    typeof bithday !== "string"
+    typeof birthday !== "string" ||
+    typeof username !== "string"
   ) {
     console.error("Validation Failed");
-    callback(
-      new Error("Validation errors.")
-    );
+    callback(new Error("Validation errors."));
     return;
   }
 
+  const userData = { fullname, username, password, birthday, email };
   createAccount(userData)
     .then((res) => {
       callback(null, {
