@@ -7,7 +7,8 @@ provider:
   region: eu-west-2
 
   environment:
-    USER_TABLE: "USERS"
+    USER_TABLE: "users-${opt:stage, self:provider.stage}"
+    POST_TABLE: "posts-${opt:stage, self:provider.stage}"
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -48,18 +49,18 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
-        TableName: 'USERS'
+        TableName: ${self:provider.environment.USER_TABLE}
         AttributeDefinitions:
           - AttributeName: "id"
             AttributeType: "S"
-          # - AttributeName: "username"
-          #   AttributeType: "S"
-          # - AttributeName: "password"
-          #   AttributeType: "S"
-          # - AttributeName: "fullName"
-          #   AttributeType: "S"
-          # - AttributeName: "bithday"
-          #   AttributeType: "S"
+          - AttributeName: "username"
+            AttributeType: "S"
+          - AttributeName: "password"
+            AttributeType: "S"
+          - AttributeName: "fullName"
+            AttributeType: "S"
+          - AttributeName: "bithday"
+            AttributeType: "S"
         KeySchema:
           - AttributeName: "id"
             KeyType: "HASH"
