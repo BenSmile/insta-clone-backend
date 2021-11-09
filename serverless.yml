@@ -20,7 +20,7 @@ provider:
 
 functions:
   signInUser:
-    handler: api/auth.signin
+    handler: api/signin.handler
     memorySize: 128
     description: Signin user
     events:
@@ -28,7 +28,7 @@ functions:
           path: api/auth/signin
           method: post
   signUpUser:
-    handler: api/auth.signup
+    handler: api/signup.handler
     memorySize: 128
     description: User Account creation
     events:
