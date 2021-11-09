@@ -19,10 +19,10 @@ provider:
       Resource: "*"
 
 functions:
-  candidateSubmission:
+  signInUser:
     handler: api/auth.signin
     memorySize: 128
-    description: Sigin user
+    description: Signin user
     events:
       - http: 
           path: api/auth/signin
