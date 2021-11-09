@@ -1,9 +1,6 @@
 "use strict";
 
-const uuid = require("uuid");
 const AWS = require("aws-sdk");
-
-AWS.config.setPromisesDependency(require("bluebird"));
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
@@ -44,7 +41,7 @@ module.exports.signin = async (event, callback) => {
   }
 
   const params = {
-    TableName: process.env.USER_TABLE,
+    TableName: 'USERS',
     Key: {
       username: username,
     },
