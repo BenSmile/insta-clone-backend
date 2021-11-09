@@ -64,14 +64,14 @@ resources:
         KeySchema:
           - AttributeName: "id"
             KeyType: "HASH"
-          - AttributeName: "username"
-            KeyType: "HASH"
-          - AttributeName: "password"
-            KeyType: "RANGE"
-          - AttributeName: "fullName"
-            KeyType: "RANGE"
-          - AttributeName: "bithday"
-            KeyType: "RANGE"
+          # - AttributeName: "username"
+          #   KeyType: "HASH"
+          # - AttributeName: "password"
+          #   KeyType: "RANGE"
+          # - AttributeName: "fullName"
+          #   KeyType: "RANGE"
+          # - AttributeName: "bithday"
+          #   KeyType: "RANGE"
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
