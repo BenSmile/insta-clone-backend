@@ -1,9 +1,7 @@
 const {sendSMS}  = require("../lib/sns");
 
-module.exports.handler = async function signInUser(event) {
+module.exports.handler = async function sendOtp(event) {
   const body = JSON.parse(event.body);
-  // const { sendto } = event.pathParameters;
-
   return sendSMS(body.phoneNumber)
     .then((session) => ({
       statusCode: 200,
