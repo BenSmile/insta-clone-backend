@@ -1,10 +1,10 @@
-org: tmaximini
+org: vdc
 
 custom:
   secrets: ${file(secrets.json)}
   tableName: "test-users-table"
 
-service: serverless-jwt-authorizer
+service: insta-clone-backend
 provider:
   name: aws
   runtime: nodejs12.x
