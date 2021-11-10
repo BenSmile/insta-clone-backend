@@ -1,9 +1,10 @@
-const { login } = require("../lib/utils");
+const {default: sendSMS } = require("../lib/sns");
 
 module.exports.handler = async function signInUser(event) {
-  const body = JSON.parse(event.body);
+  // const body = JSON.parse(event.body);
+  const { sendto } = event.pathParameters;
 
-  return login(body)
+  return sendSMS(sendto)
     .then(session => ({
       statusCode: 200,
       body: JSON.stringify(session)
