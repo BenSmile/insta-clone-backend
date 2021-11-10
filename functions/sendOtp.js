@@ -1,4 +1,4 @@
-const { default: sendSMS } = require("../lib/sns");
+const {sendSMS}  = require("../lib/sns");
 
 module.exports.handler = async function signInUser(event) {
   const body = JSON.parse(event.body);
