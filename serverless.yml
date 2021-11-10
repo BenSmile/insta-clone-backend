@@ -1,79 +1,70 @@
-service: insta-clone-service
+org: tmaximini
 
+custom:
+  secrets: ${file(secrets.json)}
+  tableName: "test-users-table"
+
+service: serverless-jwt-authorizer
 provider:
   name: aws
-  runtime: nodejs14.x
-  stage: dev
-  region: eu-west-2
-
+  runtime: nodejs12.x
+  region: eu-central-1
   environment:
-    USER_TABLE: "users-${opt:stage, self:provider.stage}"
-    POST_TABLE: "posts-${opt:stage, self:provider.stage}"
+    JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
+    AWS_ID: ${self:custom.secrets.AWS_ID}
   iamRoleStatements:
-    - Effect: Allow
+    - Effect: "Allow"
       Action:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
       Resource: "*"
-
 functions:
-  signInUser:
-    handler: api/signin.handler
-    memorySize: 128
-    description: Signin user
+  verify-token:
+    handler: functions/authorize.handler
+
+  me:
+    handler: functions/me.handler
     events:
-      - http: 
-          path: api/auth/signin
+      - http:
+          path: me
+          method: get
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 3600
+  login:
+    handler: functions/login.handler
+    events:
+      - http:
+          path: login
           method: post
-  signUpUser:
-    handler: api/signup.handler
-    memorySize: 128
-    description: User Account creation
+          cors: true
+  register:
+    handler: functions/register.handler
     events:
-      - http: 
-          path: api/auth/signup
-          method: post 
-
-  # candidateDetails:
-  #   handler: api/candidate.get
-  #   events:
-  #     - http:
-  #         path: candidates/{id}
-  #         method: get
-
+      - http:
+          path: register
+          method: post
+          cors: true
 resources:
   Resources:
-    UsersDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
+    usersTable:
+      Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.USER_TABLE}
+        TableName: ${self:custom.tableName}
         AttributeDefinitions:
-          - AttributeName: "id"
-            AttributeType: "S"
-          # - AttributeName: "username"
-          #   AttributeType: "S"
-          # - AttributeName: "password"
-          #   AttributeType: "S"
-          # - AttributeName: "fullName"
-          #   AttributeType: "S"
-          # - AttributeName: "bithday"
-          #   AttributeType: "S"
+          - AttributeName: pk
+            AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
         KeySchema:
-          - AttributeName: "id"
-            KeyType: "HASH"
-          # - AttributeName: "username"
-          #   KeyType: "HASH"
-          # - AttributeName: "password"
-          #   KeyType: "RANGE"
-          # - AttributeName: "fullName"
-          #   KeyType: "RANGE"
-          # - AttributeName: "bithday"
-          #   KeyType: "RANGE"
+          - AttributeName: pk
+            KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        StreamSpecification:
-          StreamViewType: "NEW_AND_OLD_IMAGES"
