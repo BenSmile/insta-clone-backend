@@ -1,10 +1,10 @@
-org: vdc
+org: vodacom
 
 custom:
   secrets: ${file(secrets.json)}
   tableName: "test-users-table"
 
-service: insta-clone-backend
+service: serverless-jwt-authorizer
 provider:
   name: aws
   runtime: nodejs12.x
