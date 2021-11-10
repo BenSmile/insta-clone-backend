@@ -1,23 +1,21 @@
-const {default: sendSMS } = require("../lib/sns");
+const { default: sendSMS } = require("../lib/sns");
 
 module.exports.handler = async function signInUser(event) {
-  // const body = JSON.parse(event.body);
-  const { sendto } = event.pathParameters;
+  const body = JSON.parse(event.body);
+  // const { sendto } = event.pathParameters;
 
-  return sendSMS(sendto)
-    .then(session => ({
+  return sendSMS(body.phoneNumber)
+    .then((session) => ({
       statusCode: 200,
-      body: JSON.stringify(session)
+      body: JSON.stringify(session),
     }))
-    .catch(err => {
+    .catch((err) => {
       console.log({ err });
 
       return {
         statusCode: err.statusCode || 500,
         headers: { "Content-Type": "text/plain" },
-        body: { stack: err.stack, message: err.message }
+        body: { stack: err.stack, message: err.message },
       };
     });
 };
-
-

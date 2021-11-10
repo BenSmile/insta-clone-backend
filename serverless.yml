@@ -63,8 +63,8 @@ functions:
     handler: functions/sendOtp.handler
     events:
       - http:
-          path: sendOtp/{sendto}
-          method: get
+          path: sendOtp
+          method: post
           cors: true
 resources:
   Resources:
