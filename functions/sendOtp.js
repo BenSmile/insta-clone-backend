@@ -5,10 +5,11 @@ module.exports.handler = async function sendOtp(event) {
 
   if(!event.body){
     return {
-      statusCode: 200,
+      statusCode: 204,
       message: "Empty body",
     };
   }
+  
   const body = JSON.parse(event.body);
 
   try {

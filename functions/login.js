@@ -1,6 +1,13 @@
 const { login } = require("../lib/utils");
 
 module.exports.handler = async function signInUser(event) {
+  if(!event.body){
+    return {
+      statusCode: 204,
+      message: "Empty body",
+    };
+  }
+  
   const body = JSON.parse(event.body);
 
   return login(body)
