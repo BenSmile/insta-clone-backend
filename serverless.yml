@@ -60,7 +60,7 @@ functions:
           method: post
           cors: true
   sendOtp:
-    handler: functions/login.handler
+    handler: functions/sendOtp.handler
     events:
       - http:
           path: sendOtp
