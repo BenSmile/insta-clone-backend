@@ -1,7 +1,14 @@
-const { default: sendMail } = require("../lib/mail");
-const { sendSMS } = require("../lib/sns");
+const sendMail  = require("../lib/mail");
+// const { sendSMS } = require("../lib/sns");
 
 module.exports.handler = async function sendOtp(event) {
+
+  if(!event.body){
+    return {
+      statusCode: 200,
+      message: "Empty body",
+    };
+  }
   const body = JSON.parse(event.body);
 
   try {
@@ -30,3 +37,5 @@ module.exports.handler = async function sendOtp(event) {
   //     };
   //   });
 };
+
+
