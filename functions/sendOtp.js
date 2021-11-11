@@ -1,19 +1,17 @@
-const sendMail  = require("../lib/mail");
-// const { sendSMS } = require("../lib/sns");
+const { sendMail } = require("../lib/mail");
 
 module.exports.handler = async function sendOtp(event) {
-
-  if(!event.body){
+  if (!event.body) {
     return {
       statusCode: 204,
       message: "Empty body",
     };
   }
-  
+
   const body = JSON.parse(event.body);
 
   try {
-    sendMail(body.mail);
+    await sendMail(body.mail);
     return {
       statusCode: 200,
       message: "Activation code sent!",
@@ -24,19 +22,4 @@ module.exports.handler = async function sendOtp(event) {
       message: "Error while sending Activation code",
     };
   }
-
-  // return sendSMS(body.phoneNumber)
-  //   .then((session) => ({
-  //     statusCode: 200,
-  //     body: JSON.stringify(session),
-  //   }))
-  //   .catch((err) => {
-  //     return {
-  //       statusCode: err.statusCode || 500,
-  //       headers: { "Content-Type": "application/json" },
-  //       body: { stack: err.stack, message: err.message },
-  //     };
-  //   });
 };
-
-
