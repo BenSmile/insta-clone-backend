@@ -1,0 +1,66 @@
+
+
+                    =============           API DOCUMENTATION           =============
+
+                    
+
+1. Login endpoint
+    description : Login user 
+    url : https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/login
+    method: post
+    protected: no
+    body : {
+                "username": "type:string, required:true",
+                "password": "type:string, required:true"
+            }
+    statusCode :
+        - 200: everything is fine
+        - 400: some fields are missing
+        - 500: error intern
+
+2. Registration endpoint
+    description : Registrer an user 
+    url : https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/register
+    method: post
+    protected: no
+    body : {
+                "email": "type:string, required:true", 
+                "password": "type:string, required:true",
+                "phone": "type:string, required:true",
+                "bio": "type:string, required:no",
+                "avatar": "type:string, required:false",   
+                "fullName": "type:string, required:true",
+                "birthDay":"type:string, required:true",
+                "username": "type:string, required:true",
+            }
+    statusCode :
+        - 200: everything is fine
+        - 400: some fields are missing
+        - 500: error intern
+
+3. Send opt endpoint:
+    description : Send confirmation code when new user is registering 
+    url: https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/sendOtp
+    method: post
+    protected: no
+    body: {
+            "mail":"type:string, required:true"
+            }
+    statusCode :
+        - 200: everything is fine
+        - 400: some fields are missing or empty body
+        - 500: error intern
+
+3. Send opt endpoint:
+    description : Getting user profile data
+    url: https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/me
+    method: get
+    protected: yes
+    header: {"Authorization":"Bearer token"}
+    body: {
+            "mail":"type:string, required:true"
+            }
+    statusCode :
+        - 200: everything is fine
+        - 400: some fields are missing or empty body
+        - 500: error intern
