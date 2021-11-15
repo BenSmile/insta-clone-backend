@@ -26,8 +26,8 @@
     body : {
                 "email": "type:string, required:true", 
                 "password": "type:string, required:true",
-                "phone": "type:string, required:true",
-                "bio": "type:string, required:no",
+                "phone": "type:string, required:false",
+                "bio": "type:string, required:false",
                 "avatar": "type:string, required:false",   
                 "fullName": "type:string, required:true",
                 "birthDay":"type:string, required:true",
