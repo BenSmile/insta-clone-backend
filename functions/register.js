@@ -17,8 +17,6 @@ module.exports.handler = async function registerUser(event) {
   } else {
     return createDbUser(body)
       .then(async (user) => {
-        console.log("createUser-- ", user);
-        await sendMail(body.mail);
         return {
           statusCode: 200,
           body: JSON.stringify(user),
