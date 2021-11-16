@@ -18,8 +18,8 @@ custom:
 
 plugins:
   - serverless-iam-roles-per-function
-  - serverless-dynamodb-local
-  - serverless-offline
+#  - serverless-dynamodb-local
+#  - serverless-offline
 service: serverless-jwt-authorizer
 provider:
   name: aws
