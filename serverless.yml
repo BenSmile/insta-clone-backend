@@ -15,6 +15,7 @@ custom:
     resourcesRoutes: true
 
 
+
 plugins:
   - serverless-iam-roles-per-function
   - serverless-dynamodb-local
@@ -36,6 +37,13 @@ provider:
         - dynamodb:PutItem
       Resource: "*"
 functions:
+  findUsers:
+    handler: functions/findUsers.handler
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
 
   hello:
     handler: handler.hello
@@ -73,6 +81,15 @@ functions:
           path: register
           method: post
           cors: true
+
+  completeRegistration:
+    handler: functions/completeRegistration.handler
+    events:
+      - http:
+          path: completeRegistration
+          method: put
+          cors: true
+
   sendOtp:
     handler: functions/sendOtp.handler
     events:

@@ -1,4 +1,4 @@
-const { createDbUser } = require("../lib/db");
+const {  } = require("../lib/db");
 
 module.exports.handler = async function registerUser(event) {
   const body = JSON.parse(event.body);
