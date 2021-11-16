@@ -5,14 +5,14 @@ custom:
   tableName: "test-users-table"
   postTableName: "posts-table"
   optsTableName: "otps-table"
-  dynamodb:
-    stages:
-      - dev
-    start:
-      port: 8080
-      migrate: true
-  serverless-offline:
-    resourcesRoutes: true
+  # dynamodb:
+  #   stages:
+  #     - dev
+  #   start:
+  #     port: 8080
+  #     migrate: true
+  # serverless-offline:
+  #   resourcesRoutes: true
 
 
 
