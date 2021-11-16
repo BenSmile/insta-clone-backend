@@ -1,7 +1,22 @@
 const { completeRegistration } = require("../lib/db");
 
 module.exports.handler = async function registerUser(event) {
+
+  if(!event.body){
+    return {
+      statusCode: 400,
+      message: "Empty body",
+    };
+  }
+
   const body = JSON.parse(event.body);
+
+  if(!body.password){
+    return {
+      statusCode: 400,
+      message: "Password is required",
+    };
+  }
 
   return completeRegistration(body)
     .then((user) => {
