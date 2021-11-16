@@ -22,7 +22,7 @@ module.exports.handler = async function signInUser(event) {
       return {
         statusCode: err.statusCode || 500,
         headers: { "Content-Type": "text/plain" },
-        body: { stack: err.stack, message: err.message }
+        body: { stack: err.stack, message: err.message, statusCode: 500 }
       };
     });
 };
