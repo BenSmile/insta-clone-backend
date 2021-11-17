@@ -37,9 +37,11 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - "s3:Put"
       Resource: "*"
-    - Effect: "Allow"
-      Action
+    # - Effect: "Allow"
+    #   Action:
+       
 
 functions:
 
