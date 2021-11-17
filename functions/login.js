@@ -20,7 +20,7 @@ module.exports.handler = async function signInUser(event) {
 
   return login(body)
     .then((session) => ({
-      statusCode: 200,
+      statusCode: session.statusCode,
       body: JSON.stringify(session),
     }))
     .catch((err) => {

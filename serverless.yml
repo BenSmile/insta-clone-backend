@@ -4,6 +4,7 @@ custom:
   secrets: ${file(secrets.json)}
   tableName: "test-users-table"
   postTableName: "posts-table"
+  notificationsTableName: "notifications-table"
   optsTableName: "otps-table"
   dynamodb:
     stages:
@@ -16,8 +17,9 @@ custom:
 
 plugins:
   - serverless-iam-roles-per-function
-#  - serverless-dynamodb-local
-#  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-offline
+
 service: serverless-jwt-authorizer
 provider:
   name: aws
@@ -141,10 +143,28 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
 
-    otps-table:
+    otpsTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.optsTableName}
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    notificationsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.notificationsTableName}
         AttributeDefinitions:
           - AttributeName: pk
             AttributeType: S
