@@ -6,6 +6,7 @@ custom:
   postTableName: "posts-table"
   notificationsTableName: "notifications-table"
   optsTableName: "otps-table"
+  fileUploadBucketName: ${self:service}-bucket-${self:provider.stage}
   dynamodb:
     stages:
       - dev
@@ -17,13 +18,14 @@ custom:
 
 plugins:
   - serverless-iam-roles-per-function
-  - serverless-dynamodb-local
-  - serverless-offline
+  # - serverless-dynamodb-local
+  # - serverless-offline
 
 service: serverless-jwt-authorizer
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: dev
   region: eu-central-1
   environment:
     JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
@@ -134,6 +136,12 @@ functions:
 
 resources:
   Resources:
+    FileBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.fileUploadBucketName}
+        AccessControl: PublicRead
+
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
