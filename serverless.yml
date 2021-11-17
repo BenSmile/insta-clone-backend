@@ -5,16 +5,14 @@ custom:
   tableName: "test-users-table"
   postTableName: "posts-table"
   optsTableName: "otps-table"
-  # dynamodb:
-  #   stages:
-  #     - dev
-  #   start:
-  #     port: 8080
-  #     migrate: true
-  # serverless-offline:
-  #   resourcesRoutes: true
-
-
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8080
+      migrate: true
+  serverless-offline:
+    resourcesRoutes: true
 
 plugins:
   - serverless-iam-roles-per-function
@@ -60,7 +58,7 @@ functions:
           path: hello
           method: get
           cors: true
-          
+
   verify-token:
     handler: functions/authorize.handler
 
@@ -98,11 +96,11 @@ functions:
           method: put
           cors: true
 
-  sendOtp:
-    handler: functions/sendOtp.handler
+  verifyOtp:
+    handler: functions/verifyOtp.handler
     events:
       - http:
-          path: sendOtp
+          path: verifyOtp
           method: post
           cors: true
 resources:
@@ -150,9 +148,13 @@ resources:
         AttributeDefinitions:
           - AttributeName: pk
             AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
         KeySchema:
           - AttributeName: pk
             KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

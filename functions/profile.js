@@ -9,7 +9,7 @@ module.exports.handler = async function (event) {
   if (!dbUser) {
     return {
       statusCode: 403,
-      message: "Not authorized",
+      body: JSON.stringify({ message: "Not authorized" }),
     };
   }
   const body = event.body;

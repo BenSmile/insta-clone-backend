@@ -2,7 +2,21 @@ const { createDbUser, getUserByEmail } = require("../lib/db");
 const { sendMail } = require("../lib/mail");
 
 module.exports.handler = async function registerUser(event) {
+  if (!event.body) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Empty body" }),
+    };
+  }
+
   const body = JSON.parse(event.body);
+
+  if (!body.email) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: "Email is required" }),
+    };
+  }
 
   const user = await getUserByEmail(body.email);
   console.log("user-> ", user);
@@ -11,8 +25,8 @@ module.exports.handler = async function registerUser(event) {
     console.log("user exists-> ", user);
 
     return {
-      statusCode: 200,
-      message: "Email already taken",
+      statusCode: 400,
+      body: JSON.stringify({ message: "Email already taken" }),
     };
   } else {
     return createDbUser(body)
