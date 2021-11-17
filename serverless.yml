@@ -6,19 +6,19 @@ custom:
   postTableName: "posts-table"
   notificationsTableName: "notifications-table"
   optsTableName: "otps-table"
-  dynamodb:
-    stages:
-      - dev
-    start:
-      port: 8080
-      migrate: true
-  serverless-offline:
-    resourcesRoutes: true
+  # dynamodb:
+  #   stages:
+  #     - dev
+  #   start:
+  #     port: 8080
+  #     migrate: true
+  # serverless-offline:
+  #   resourcesRoutes: true
 
 plugins:
   - serverless-iam-roles-per-function
-  - serverless-dynamodb-local
-  - serverless-offline
+  # - serverless-dynamodb-local
+  # - serverless-offline
 
 service: serverless-jwt-authorizer
 provider:
