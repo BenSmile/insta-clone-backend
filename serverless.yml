@@ -141,7 +141,7 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
 
-    otpsTable:
+    otps-table:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.optsTableName}
