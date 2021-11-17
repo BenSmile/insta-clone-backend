@@ -90,6 +90,7 @@ functions:
           path: login
           method: post
           cors: true
+
   register:
     handler: functions/register.handler
     events:
@@ -113,6 +114,24 @@ functions:
           path: verifyOtp
           method: post
           cors: true
+
+# POSTS endpoints
+  createPost:
+    handler: functions/posts.create
+    events:
+      - http:
+          path: posts
+          method: post
+          cors: true
+
+  allPosts:
+    handler: functions/posts.allPosts
+    events:
+      - http:
+          path: posts
+          method: get
+          cors: true
+
 resources:
   Resources:
     usersTable:
