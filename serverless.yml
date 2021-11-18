@@ -22,7 +22,7 @@ plugins:
   # - serverless-dynamodb-local
   # - serverless-offline
 
-service: serverless-jwt-authorizer
+service: insta-clone-api
 provider:
   name: aws
   runtime: nodejs12.x
@@ -149,6 +149,10 @@ functions:
           path: posts
           method: post
           cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 3600
 
   allPosts:
     handler: functions/posts.allPosts
@@ -157,6 +161,18 @@ functions:
           path: posts
           method: get
           cors: true
+
+  likePost:
+    handler: functions/posts.like
+    events:
+      - http:
+          path: likePost
+          method: post
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 3600
 
 resources:
   Resources:
