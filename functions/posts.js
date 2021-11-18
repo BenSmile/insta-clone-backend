@@ -1,4 +1,9 @@
-const { createPost, getAllPosts, likePost } = require("../lib/db");
+const {
+  createPost,
+  getAllPosts,
+  likePost,
+  getAllPostsConnectedUser,
+} = require("../lib/db");
 const { getUserFromToken } = require("../lib/utils");
 
 module.exports.create = async function addPost(event) {
@@ -35,8 +40,17 @@ module.exports.create = async function addPost(event) {
 };
 
 module.exports.allPosts = async function allPosts(event) {
-  
-  const posts = await getAllPosts();
+  let posts = await getAllPosts();
+
+  try {
+    if (event.headers.Authorization) {
+      const userObj = await getUserFromToken(event.headers.Authorization);
+      posts = await getAllPostsConnectedUser(userObj.email);
+    }
+  } catch (error) {
+    posts = await getAllPosts();
+  }
+
   return {
     statusCode: 200,
     headers: {},

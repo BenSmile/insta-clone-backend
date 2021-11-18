@@ -5,14 +5,9 @@ const BUCKET_NAME = "serverless-jwt-authorizer-bucket-dev";
 const AWS_REGION = process.env.AWS_REGION;
 const subFolder = "data";
 
-module.exports.handler = async (event) => {
-  //   const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKET_NAME;
-
-  //   console.log("name bucket -", process.env.FILE_UPLOAD_BACKET_NAME);
-  //   console.log("region -", process.env.AWS_REGION);
-  //   console.log("body -> ", event);
+module.exports.handler = async (event) => { 
   console.log(event);
-  // console.log(event.body.title);
+  console.log(event.files);
 
   const response = {
     isBase64Encoded: false,
