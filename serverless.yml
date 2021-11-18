@@ -22,7 +22,7 @@ plugins:
   # - serverless-dynamodb-local
   # - serverless-offline
 
-service: insta-clone-api
+service: serverless-jwt-authorizer
 provider:
   name: aws
   runtime: nodejs12.x
