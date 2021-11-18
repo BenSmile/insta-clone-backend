@@ -1,7 +1,7 @@
 const { login } = require("../lib/utils");
 
 module.exports.handler = async function signInUser(event) {
-  console.log("body-> ", event.body);
+  // console.log("body-> ", event.body);
   if (!event.body) {
     return {
       statusCode: 400,

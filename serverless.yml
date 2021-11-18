@@ -6,6 +6,7 @@ custom:
   postTableName: "posts-table"
   notificationsTableName: "notifications-table"
   optsTableName: "otp-table"
+  likesTableName: "like-table"
   fileUploadBucketName: ${self:service}-bucket-${self:provider.stage}
   dynamodb:
     stages:
@@ -30,6 +31,7 @@ provider:
   environment:
     JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
     AWS_ID: ${self:custom.secrets.AWS_ID}
+    FILE_UPLOAD_BACKET_NAME: ${self:custom.fileUploadBucketName}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -40,8 +42,9 @@ provider:
         - dynamodb:UpdateItem
         - "s3:Put"
       Resource: "*"
-    # - Effect: "Allow"
-    #   Action:
+
+# environment:
+#   FILE_UPLOAD_BACKET_NAME: ${self:custom.fileUploadBucketName}
        
 
 functions:
@@ -54,9 +57,10 @@ functions:
     memorySize: 128 #mb
     events:
       - http:
-        path: upload
-        method: post
-         
+          path: upload
+          method: post
+          cors: true
+   
   findUsers:
     handler: functions/findUsers.handler
     events:
@@ -80,6 +84,8 @@ functions:
           path: otps
           method: get
           cors: true
+          headers:
+            Content-Type: multipart/form-data
 
   hello:
     handler: handler.hello
@@ -218,6 +224,24 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.notificationsTableName}
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    likesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.likesTableName}
         AttributeDefinitions:
           - AttributeName: pk
             AttributeType: S
