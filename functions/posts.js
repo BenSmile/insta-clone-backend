@@ -35,6 +35,7 @@ module.exports.create = async function addPost(event) {
 };
 
 module.exports.allPosts = async function allPosts(event) {
+  
   const posts = await getAllPosts();
   return {
     statusCode: 200,
@@ -61,18 +62,18 @@ module.exports.like = async function (event) {
 
     const body = JSON.parse(event.body);
 
-    if (!body.post || !body.user) {
+    if (!body.post) {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          message: "Post id and user email are required",
+          message: "post is required",
         }),
       };
     }
 
     const userObj = await getUserFromToken(event.headers.Authorization);
 
-    await likePost(post, userObj.email);
+    await likePost(body.post, userObj.email);
     return {
       statusCode: 200,
       headers: {},
