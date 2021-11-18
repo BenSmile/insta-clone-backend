@@ -1,4 +1,4 @@
-const { createPost, getAllPosts } = require("../lib/db");
+const { createPost, getAllPosts, likePost } = require("../lib/db");
 const { getUserFromToken } = require("../lib/utils");
 
 module.exports.create = async function addPost(event) {
@@ -41,4 +41,48 @@ module.exports.allPosts = async function allPosts(event) {
     headers: {},
     body: JSON.stringify(posts),
   };
+};
+
+module.exports.like = async function (event) {
+  try {
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Empty body" }),
+      };
+    }
+
+    if (!event.headers.Authorization) {
+      return {
+        statusCode: 403,
+        body: JSON.stringify({ message: "Plz, provide an token" }),
+      };
+    }
+
+    const body = JSON.parse(event.body);
+
+    if (!body.post || !body.user) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          message: "Post id and user email are required",
+        }),
+      };
+    }
+
+    const userObj = await getUserFromToken(event.headers.Authorization);
+
+    await likePost(post, userObj.email);
+    return {
+      statusCode: 200,
+      headers: {},
+      body: JSON.stringify({ message: "Post liked successfully" }),
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error }),
+    };
+  }
 };
