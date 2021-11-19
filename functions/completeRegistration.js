@@ -1,8 +1,7 @@
 const { completeRegistration } = require("../lib/db");
 
 module.exports.handler = async function registerUser(event) {
-
-  if(!event.body){
+  if (!event.body) {
     return {
       statusCode: 400,
       message: "Empty body",
@@ -11,7 +10,7 @@ module.exports.handler = async function registerUser(event) {
 
   const body = JSON.parse(event.body);
 
-  if(!body.password){
+  if (!body.password) {
     return {
       statusCode: 400,
       message: "Password is required",
@@ -22,7 +21,11 @@ module.exports.handler = async function registerUser(event) {
     .then((user) => {
       return {
         statusCode: 200,
-        body: JSON.stringify(user),
+        body: JSON.stringify({
+          message: "Registration completed successfully",
+          statusCode: 200,
+          user,
+        }),
       };
     })
     .catch((err) => {
