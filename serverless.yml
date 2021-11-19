@@ -167,6 +167,18 @@ functions:
             identitySource: method.request.header.Authorization
             resultTtlInSeconds: 3600
 
+  deletePost:
+    handler: functions/posts.delete
+    events:
+      - http:
+          path: posts/{postId}
+          method: delete
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 3600
+
   allPosts:
     handler: functions/posts.allPosts
     events:

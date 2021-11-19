@@ -4,6 +4,7 @@ const {
   likePost,
   getAllPostsConnectedUser,
   updatePost,
+  deletePost,
 } = require("../lib/db");
 const { getUserFromToken } = require("../lib/utils");
 
@@ -135,5 +136,25 @@ module.exports.like = async function (event) {
       statusCode: 500,
       body: JSON.stringify({ error }),
     };
+  }
+};
+
+module.exports.delete = async function (event) {
+  try {
+
+    const postId = event.pathParameters.postId;
+
+    if (event.headers.Authorization) {
+      const userObj = await getUserFromToken(event.headers.Authorization);
+      posts = await deletePost(postId);
+
+      return {
+        statusCode: 200,
+        headers: {},
+        body: JSON.stringify({ message: "Post deleted successfully" }),
+      };
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
