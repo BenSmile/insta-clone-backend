@@ -1,3 +1,4 @@
+const { sendOtpToClient } = require("../lib/db");
 const { login } = require("../lib/utils");
 
 module.exports.handler = async function signInUser(event) {
@@ -35,4 +36,20 @@ module.exports.handler = async function signInUser(event) {
         body: { stack: err.stack, message: err.message, statusCode: 500 },
       };
     });
+};
+
+module.exports.sendOtp = async function (event) {
+  try {
+    const email = event.pathParameters.email;
+
+    await sendOtpToClient(email);
+
+    return {
+      statusCode: 200,
+      headers: {},
+      body: JSON.stringify({ message: "Code sent successfully" }),
+    };
+  } catch (error) {
+    console.log(error);
+  }
 };

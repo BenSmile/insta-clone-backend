@@ -179,6 +179,16 @@ functions:
             identitySource: method.request.header.Authorization
             resultTtlInSeconds: 3600
 
+  sendOtp:
+    handler: functions/login.sendOtp
+    events:
+      - http:
+          path: sendOtp/{email}
+          method: get
+          cors: true
+        
+
+            
   allPosts:
     handler: functions/posts.allPosts
     events:
