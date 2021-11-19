@@ -5,7 +5,7 @@ module.exports.handler = async function signInUser(event) {
   if (!event.body) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ message: "Empty body" }),
+      body: JSON.stringify({ message: "Empty body", statusCode: 400 }),
     };
   }
 
@@ -13,8 +13,11 @@ module.exports.handler = async function signInUser(event) {
 
   if (!body.email || !body.password) {
     return {
-      statusCode: 500,
-      body: JSON.stringify({ message: "Email and password are required" }),
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Email and password are required",
+        statusCode: 400,
+      }),
     };
   }
 
