@@ -109,6 +109,7 @@ functions:
             name: verify-token
             identitySource: method.request.header.Authorization
             resultTtlInSeconds: 3600
+  
   login:
     handler: functions/login.handler
     events:
@@ -148,6 +149,18 @@ functions:
       - http:
           path: posts
           method: post
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 3600
+
+  updatePost:
+    handler: functions/posts.update
+    events:
+      - http:
+          path: posts
+          method: put
           cors: true
           authorizer:
             name: verify-token

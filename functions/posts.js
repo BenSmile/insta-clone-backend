@@ -3,6 +3,7 @@ const {
   getAllPosts,
   likePost,
   getAllPostsConnectedUser,
+  updatePost,
 } = require("../lib/db");
 const { getUserFromToken } = require("../lib/utils");
 
@@ -39,7 +40,41 @@ module.exports.create = async function addPost(event) {
   }
 };
 
-module.exports.allPosts = async function allPosts(event) {
+module.exports.update = async function (event) {
+  if (!event.body) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Empty body" }),
+    };
+  }
+
+  if (!event.headers.Authorization) {
+    return {
+      statusCode: 403,
+      body: JSON.stringify({ message: "Plz, provide an token" }),
+    };
+  }
+
+  try {
+    const userObj = await getUserFromToken(event.headers.Authorization);
+    console.log("user-> ", userObj.email);
+    const body = JSON.parse(event.body);
+    await updatePost(body);
+    return {
+      statusCode: 200,
+      headers: {},
+      body: JSON.stringify({ message: "Post updated successfully" }),
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error }),
+    };
+  }
+};
+
+module.exports.allPosts = async function (event) {
   let posts = await getAllPosts();
 
   try {
@@ -48,6 +83,7 @@ module.exports.allPosts = async function allPosts(event) {
       posts = await getAllPostsConnectedUser(userObj.email);
     }
   } catch (error) {
+    console.log(error);
     posts = await getAllPosts();
   }
 
@@ -70,7 +106,7 @@ module.exports.like = async function (event) {
     if (!event.headers.Authorization) {
       return {
         statusCode: 403,
-        body: JSON.stringify({ message: "Plz, provide an token" }),
+        body: JSON.stringify({ message: "Not authorized" }),
       };
     }
 
