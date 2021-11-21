@@ -26,7 +26,7 @@ module.exports.handler = async function registerUser(event) {
 
     return {
       statusCode: 400,
-      body: JSON.stringify({ message: "Email already taken" }),
+      body: JSON.stringify({ message: "Account aldready exists" }),
     };
   } else {
     return createDbUser(body)

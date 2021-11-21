@@ -1,10 +1,6 @@
 // Require AWS SDK and instantiate DocumentClient
 const AWS = require("aws-sdk");
-const bcrypt = require("bcryptjs");
 const { Model } = require("dynamodb-toolbox");
-const { v4: uuidv4 } = require("uuid");
-const { sendOpt } = require("./mail");
-const { signToken } = require("./utils");
 
 const User = new Model("User", {
   // Specify table name
@@ -47,12 +43,14 @@ const Post = new Model("Post", {
   // Define schema
   schema: {
     pk: { type: "string", alias: "id" },
-    sk: { type: "string", hidden: true, alias: "type" },
+    sk: { type: "string", alias: "type" },
     user: { type: "string" },
     title: { type: "string" },
     caption: { type: "string" },
     medias: { type: "list" },
+    username: { type: "string" },
     createdAt: { type: "string" },
+    likes: { type: "number" },
   },
 });
 
@@ -114,20 +112,28 @@ AWS.config.update({
   region: "eu-central-1",
 });
 
-// const docClient = new AWS.DynamoDB.DocumentClient();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-const docClient = new AWS.DynamoDB.DocumentClient({
-  region: "localhost",
-  accessKeyId: "access_key_id",
-  secretAccessKeyId: "secret_access_key_id",
-  endpoint: "http://localhost:8080",
-});
+// const docClient = new AWS.DynamoDB.DocumentClient({
+//   region: "localhost",
+//   accessKeyId: "access_key_id",
+//   secretAccessKeyId: "secret_access_key_id",
+//   endpoint: "http://localhost:8080",
+// });
 
-export default docClient;
+const getUserByEmail = async (email) => {
+  const params = User.get({ email, sk: "User" });
+  const response = await docClient.get(params).promise();
+  delete response.passwordHash;
+  return User.parse(response);
+};
 
 module.exports = {
+  getUserByEmail,
   Like,
   Post,
   User,
+  Otp,
   Notification,
+  docClient,
 };
