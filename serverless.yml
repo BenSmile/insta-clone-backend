@@ -28,10 +28,14 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-central-1
+  apiGateway:
+    binaryMediaTypes:
+            - '*/*'
   environment:
     JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
     AWS_ID: ${self:custom.secrets.AWS_ID}
     FILE_UPLOAD_BACKET_NAME: ${self:custom.fileUploadBucketName}
+    region: ${self:provider.region}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -43,6 +47,8 @@ provider:
         - "s3:Put"
       Resource: "*"
 
+
+      
 # environment:
 #   FILE_UPLOAD_BACKET_NAME: ${self:custom.fileUploadBucketName}
        

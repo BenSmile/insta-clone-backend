@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/BenSmile/serverless-jwt-authorizer#readme",
   "dependencies": {
+    "aws-multipart-parser": "^0.2.1",
     "bcryptjs": "^2.4.3",
+    "busboy": "^0.3.1",
     "dynamodb-toolbox": "^0.1.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "6.7.0",

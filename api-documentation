@@ -63,14 +63,14 @@
                 "id": "bb922723-d278-4955-9ac7-18d9a4b802d7",
                 "password":"password",
                 "bio": "Ing en system",
-                "avatar": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffr%2Ficone-gratuite%2Favatar_147144&psig=AOvVaw1h6iR8HUfsoKqtqK12DIf3&ust=1636796177990000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCMjX0YzDkvQCFQAAAAAdAAAAABAD",
+                "avatar": "https://www.senalia.com/wp-content/themes/tractor/assets/images/avatar-placeholder.jpg",
                 "fullName": "John doe",
                 "birthDay":"12-12-1990",
                 "username": "johndoe",
                 "followers": 20,
                 "following": 10,
                 "posts": 20,
-                "profile": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffr%2Ficone-gratuite%2Favatar_147144&psig=AOvVaw1h6iR8HUfsoKqtqK12DIf3&ust=1636796177990000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCMjX0YzDkvQCFQAAAAAdAAAAABAD"
+                "profile": "https://www.senalia.com/wp-content/themes/tractor/assets/images/avatar-placeholder.jpg"
             }
     statusCode :
         - 200: everything is fine
@@ -80,10 +80,10 @@
                                         "following": 10,
                                         "passwordHash": "$2a$08$VT1sN74zmdQDUT84I66.fecPMt0HGr5CQSJj/jiKdMqxdXmf61TtO",
                                         "posts": 20,
-                                        "avatar": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffr%2Ficone-gratuite%2Favatar_147144&psig=AOvVaw1h6iR8HUfsoKqtqK12DIf3&ust=1636796177990000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCMjX0YzDkvQCFQAAAAAdAAAAABAD",
+                                        "avatar": "https://www.senalia.com/wp-content/themes/tractor/assets/images/avatar-placeholder.jpg",
                                         "followers": 20,
                                         "bio": "Ing en system",
-                                        "profile": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffr%2Ficone-gratuite%2Favatar_147144&psig=AOvVaw1h6iR8HUfsoKqtqK12DIf3&ust=1636796177990000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCMjX0YzDkvQCFQAAAAAdAAAAABAD",
+                                        "profile": "https://www.senalia.com/wp-content/themes/tractor/assets/images/avatar-placeholder.jpg",
                                         "createdAt": "Wed Nov 17 2021 13:01:16 GMT+0000 (Coordinated Universal Time)",
                                         "fullName": "John doe",
                                         "accountStatus": "ACTIVE",
