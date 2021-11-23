@@ -10,7 +10,8 @@ module.exports.handler = async function signInUser(event) {
         };
     }
     console.log(event);
-    const body = JSON.parse(event.body);
+    // const body = JSON.parse(event.body);
+    const body = JSON.parse(JSON.stringify(event.body));
 
     console.log(body);
 
