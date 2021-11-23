@@ -1,7 +1,7 @@
 const {sendOtpToClient} = require("../lib/db");
 const {login} = require("../lib/utils");
 
-module.exports.handler = async function signInUser(event) {
+module.exports.handler = async (event) => {
     // console.log("body-> ", event.body);
     if (!event.body) {
         return {
@@ -10,8 +10,8 @@ module.exports.handler = async function signInUser(event) {
         };
     }
     console.log(event);
-    // const body = JSON.parse(event.body);
-    const body = JSON.parse(JSON.stringify(event.body));
+    const body = JSON.parse(event.body);
+    // const body = JSON.parse(JSON.stringify(event.body));
 
     console.log(body);
 
