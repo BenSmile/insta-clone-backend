@@ -26,7 +26,7 @@ module.exports.handler = async (event) => {
         body: JSON.stringify({ message: "Plz, provide an token" }),
       };
     }
-    console.log('form data => ',event.body);
+    console.log('form data => ',event);
     const userObj = await getUserFromToken(event.headers.Authorization);
     const formData = parse(event, true);
     console.log('form data => ',formData);
