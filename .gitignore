@@ -13,3 +13,5 @@ package-lock.json
 
 .dynamodb
 ./.dynamodb
+.idea
+node_modules
