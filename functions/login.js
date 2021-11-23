@@ -1,5 +1,7 @@
 const {sendOtpToClient} = require("../lib/db");
 const {login} = require("../lib/utils");
+const { parse } = require("aws-multipart-parser");
+
 
 module.exports.handler = async (event) => {
     // console.log("body-> ", event.body);
@@ -10,10 +12,9 @@ module.exports.handler = async (event) => {
         };
     }
     console.log(event);
-    const body = JSON.parse(event.body);
+    // const body = JSON.parse(event.body);
     // const body = JSON.parse(JSON.stringify(event.body));
 
-    console.log(body);
 
     if (!body.email || !body.password) {
         return {
@@ -24,6 +25,8 @@ module.exports.handler = async (event) => {
             }),
         };
     }
+    const body = parse(event, true);
+    console.log(body);
 
     return login(body)
         .then((session) => ({

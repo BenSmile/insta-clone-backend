@@ -19,7 +19,7 @@ module.exports.handler = async (event) => {
         body: JSON.stringify({ message: "Empty body" }),
       };
     }
-  
+
     if (!event.headers.Authorization) {
       return {
         statusCode: 403,
