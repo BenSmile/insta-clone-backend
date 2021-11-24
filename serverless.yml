@@ -66,8 +66,14 @@ functions:
           path: upload
           method: post
           cors: true
+          apigwBinary:
+            types:
+              - '*/*'
+#          binaryMediaTypes:
+#            - '*/*'
           headers:
-            - Content-Type: integration.response.header.Content-Type
+#            - Content-Type:
+#                multipart/form-data
 
 #          authorizer:
 #            name: verify-token
