@@ -14,20 +14,21 @@ const subFolder = "data";
 module.exports.handler = async (event) => {
   try {
 
-    // if (!event.body) {
-    //   return {
-    //     statusCode: 400,
-    //     body: JSON.stringify({ message: "Empty body" }),
-    //   };
-    // }
-    //
-    // if (!event.headers.Authorization) {
-    //   return {
-    //     statusCode: 403,
-    //     body: JSON.stringify({ message: "Plz, provide an token" }),
-    //   };
-    // }
-    console.log('form data => ',event);
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Empty body" }),
+      };
+    }
+
+    if (!event.headers.Authorization) {
+      return {
+        statusCode: 403,
+        body: JSON.stringify({ message: "Plz, provide an token" }),
+      };
+    }
+
+    // console.log('form data => ',event);
     const userObj = await getUserFromToken(event.headers.Authorization);
     const formData = parse(event, true);
     console.log('form data => ',formData);
@@ -38,7 +39,7 @@ module.exports.handler = async (event) => {
       medias: [imgPath],
     };
 
-    await createPost(post, userObj.email);
+    await createPost(post, 'userObj.email');
     return {
       statusCode: 200,
       headers: {},
