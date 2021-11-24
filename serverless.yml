@@ -66,6 +66,12 @@ functions:
           path: upload
           method: post
           cors: true
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
+          binaryMediaTypes:
+            - '*/*'
    
   findUsers:
     handler: functions/findUsers.handler
@@ -90,8 +96,7 @@ functions:
           path: otps
           method: get
           cors: true
-          headers:
-            Content-Type: multipart/form-data
+
 
   hello:
     handler: handler.hello
