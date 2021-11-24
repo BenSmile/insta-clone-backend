@@ -19,8 +19,8 @@ custom:
 
 plugins:
   - serverless-iam-roles-per-function
-#  - serverless-dynamodb-local
-#  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-offline
 
 service: serverless-jwt-authorizer
 provider:
@@ -161,17 +161,17 @@ functions:
             identitySource: method.request.header.Authorization
             resultTtlInSeconds: 3600
 
-  updatePost:
-    handler: functions/posts.update
-    events:
-      - http:
-          path: posts
-          method: put
-          cors: true
-          authorizer:
-            name: verify-token
-            identitySource: method.request.header.Authorization
-            resultTtlInSeconds: 3600
+#  updatePost:
+#    handler: functions/posts.update
+#    events:
+#      - http:
+#          path: posts
+#          method: put
+#          cors: true
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
 
   deletePost:
     handler: functions/posts.delete
