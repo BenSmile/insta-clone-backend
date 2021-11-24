@@ -47,12 +47,6 @@ provider:
         - "s3:Put"
       Resource: "*"
 
-
-      
-# environment:
-#   FILE_UPLOAD_BACKET_NAME: ${self:custom.fileUploadBucketName}
-       
-
 functions:
 
   s3FileUploader:
@@ -66,12 +60,15 @@ functions:
           path: upload
           method: post
           cors: true
-          apigwBinary:
-            types:
-              - '*/*'
+          binaryMediaTypes:
+            - '*/*'
+#          apigwBinary:
+#            types:
+#              - '*/*'
+
 #          binaryMediaTypes:
 #            - '*/*'
-          headers:
+#          headers:
 #            - Content-Type:
 #                multipart/form-data
 
@@ -81,7 +78,7 @@ functions:
 #            resultTtlInSeconds: 3600
 #          binaryMediaTypes:
 #            - '*/*'
-   
+
   findUsers:
     handler: functions/findUsers.handler
     events:
@@ -129,7 +126,7 @@ functions:
             name: verify-token
             identitySource: method.request.header.Authorization
             resultTtlInSeconds: 3600
-  
+
   login:
     handler: functions/login.handler
     events:
@@ -206,9 +203,9 @@ functions:
           path: sendOtp/{email}
           method: get
           cors: true
-        
 
-            
+
+
   allPosts:
     handler: functions/posts.allPosts
     events:
