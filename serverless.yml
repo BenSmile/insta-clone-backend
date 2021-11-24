@@ -170,10 +170,10 @@ functions:
           path: posts
           method: post
           cors: true
-          authorizer:
-            name: verify-token
-            identitySource: method.request.header.Authorization
-            resultTtlInSeconds: 3600
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
 
 #  updatePost:
 #    handler: functions/posts.update

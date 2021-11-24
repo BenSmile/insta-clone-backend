@@ -39,7 +39,7 @@ module.exports.handler = async (event) => {
       medias: [imgPath],
     };
 
-    await createPost(post, userObj.email);
+    await createPost(post, 'userObj.email');
     return {
       statusCode: 200,
       headers: {},
