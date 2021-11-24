@@ -9,9 +9,10 @@ module.exports.handler = async (event) => {
             body: JSON.stringify({message: "Empty body", statusCode: 400}),
         };
     }
-    console.log('event -> ',event);
-    // const body = JSON.parse(event.body);
-    const body = JSON.parse(JSON.stringify(event.body));
+
+    console.log(event);
+    const body = JSON.parse(event.body);
+    // const body = JSON.parse(JSON.stringify(event.body));
 
     console.log(body);
 

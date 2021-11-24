@@ -19,8 +19,8 @@ custom:
 
 plugins:
   - serverless-iam-roles-per-function
-  - serverless-dynamodb-local
-  - serverless-offline
+#  - serverless-dynamodb-local
+#  - serverless-offline
 
 service: serverless-jwt-authorizer
 provider:
@@ -28,9 +28,9 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-central-1
-  apiGateway:
-    binaryMediaTypes:
-            - '*/*'
+#  apiGateway:
+#    binaryMediaTypes:
+#            - '*/*'
   environment:
     JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
     AWS_ID: ${self:custom.secrets.AWS_ID}
