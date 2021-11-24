@@ -29,7 +29,7 @@ module.exports.updloadonS3 = async (file) => {
       statusCode: 500,
 
       body: JSON.stringify({
-        message: "File failed to upload",
+        message: `File failed to upload ${e}`,
         errorMessage: e,
       }),
     };

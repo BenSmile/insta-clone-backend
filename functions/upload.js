@@ -34,7 +34,7 @@ module.exports.handler = async (event) => {
     const imgPath = await updloadonS3(formData.file);
     const post = {
       caption: formData.caption,
-      title: formData.title,
+      title: 'a title',
       medias: [imgPath],
     };
 
