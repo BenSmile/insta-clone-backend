@@ -68,6 +68,7 @@ functions:
           cors: true
           headers:
             - Content-Type: integration.response.header.Content-Type
+
 #          authorizer:
 #            name: verify-token
 #            identitySource: method.request.header.Authorization
