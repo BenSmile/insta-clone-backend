@@ -1,4 +1,4 @@
-// Require AWS SDK and instantiate DocumentClient
+// Require AWS SDK and instantiate DocumentClienti
 const AWS = require("aws-sdk");
 const { Model } = require("dynamodb-toolbox");
 

@@ -1,5 +1,5 @@
 const {
-  createPost,
+  createPost2,
   getAllPosts,
   likePost,
   getAllPostsConnectedUser,
@@ -26,7 +26,7 @@ module.exports.create = async function addPost(event) {
     const userObj = await getUserFromToken(event.headers.Authorization);
     console.log("user-> ", userObj.email);
     const body = JSON.parse(event.body);
-    await createPost(body, userObj.email);
+    await createPost2(body, userObj.email);
     return {
       statusCode: 200,
       headers: {},
