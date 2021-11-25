@@ -28,9 +28,9 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-central-1
-#  apiGateway:
-#    binaryMediaTypes:
-#            - '*/*'
+  apiGateway:
+    binaryMediaTypes:
+            - '*/*'
   environment:
     JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
     AWS_ID: ${self:custom.secrets.AWS_ID}
@@ -60,10 +60,10 @@ functions:
           path: upload
           method: post
           cors: true
-          binaryMediaTypes:
-            - '*/*'
-#          apigwBinary:
-#            types:
+#          binaryMediaTypes:
+#            - '*/*'
+          apigwBinary:
+            types:
 #              - '*/*'
 
 #          binaryMediaTypes:
@@ -167,10 +167,10 @@ functions:
           path: posts
           method: post
           cors: true
-          authorizer:
-            name: verify-token
-            identitySource: method.request.header.Authorization
-            resultTtlInSeconds: 3600
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
 
 #  updatePost:
 #    handler: functions/posts.update
