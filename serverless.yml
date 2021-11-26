@@ -44,10 +44,22 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
-        - "s3:Put"
+        - s3:Put
       Resource: "*"
 
 functions:
+
+  uploadFileS3:
+    handler: functions/upload2.handler
+    name: upload-File-S3
+    description: A lambda handler that upload a file to an S3 bucket based on a API gateway trigger
+    timeout: 60 #seconds
+    memorySize: 128 #mb
+    events:
+      - http:
+          path: images
+          method: post
+          cors: true
 
   s3FileUploader:
     handler: functions/upload.handler
