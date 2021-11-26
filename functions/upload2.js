@@ -3,6 +3,8 @@ const {v4: uuidv4} = require("uuid");
 const s3 = new AWS.S3();
 const { createPost } = require("../lib/db");
 const { updloadonS3 } = require("./uploadS3");
+const { getUserFromToken } = require("../lib/utils");
+
 
 const BUCKET_NAME = "serverless-jwt-authorizer-bucket-dev";
 const AWS_REGION = process.env.AWS_REGION;
@@ -19,6 +21,22 @@ module.exports.handler = async (event) => {
 
     try {
 
+        if (!event.body) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: "Empty body" }),
+            };
+        }
+
+        if (!event.headers.Authorization) {
+            return {
+                statusCode: 403,
+                body: JSON.stringify({ message: "Plz, provide an token" }),
+            };
+        }
+        const userObj = await getUserFromToken(event.headers.Authorization);
+
+
 
         const parsedBody = JSON.parse(event.body);
         console.log('caption -> ', parsedBody.caption);
@@ -31,7 +49,7 @@ module.exports.handler = async (event) => {
             medias: [imgPath],
         };
 
-        await createPost(post, 'userObj.email');
+        await createPost(post, userObj.email);
 
         return {
             statusCode: 200,
