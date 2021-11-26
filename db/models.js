@@ -113,7 +113,7 @@ AWS.config.update({
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
-//
+
 // const docClient = new AWS.DynamoDB.DocumentClient({
 //   region: "localhost",
 //   accessKeyId: "access_key_id",
