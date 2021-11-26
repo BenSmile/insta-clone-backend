@@ -101,7 +101,7 @@ const Like = new Model("Like", {
   schema: {
     pk: { type: "string", alias: "id" },
     sk: { type: "string", alias: "type" },
-    user: { type: "string" },
+    username: { type: "string" },
     post: { type: "string" },
     createdAt: { type: "string" },
   },

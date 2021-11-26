@@ -11,8 +11,7 @@ const AWS_REGION = process.env.AWS_REGION;
 const subFolder = "data";
 
 module.exports.handler = async (event) => {
-    console.log(event);
-
+    console.log('--> ', event);
     const response = {
         isBase64Encoded: false,
         statusCode: 200,
@@ -41,7 +40,8 @@ module.exports.handler = async (event) => {
         const parsedBody = JSON.parse(event.body);
         console.log('caption -> ', parsedBody.caption);
         const base64File = parsedBody.file;
-        const imgPath = await updloadonS3(base64File);
+        const extension = parsedBody.extension;
+        const imgPath = await updloadonS3(base64File, extension);
         console.log('---> ', imgPath);
         const post = {
             caption: parsedBody.caption,

@@ -128,7 +128,7 @@ module.exports.like = async function (event) {
     return {
       statusCode: 200,
       headers: {},
-      body: JSON.stringify({ message: "Post liked successfully" }),
+      body: JSON.stringify({ message: "Post updated successfully" }),
     };
   } catch (error) {
     console.log(error);

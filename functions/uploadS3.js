@@ -4,15 +4,15 @@ const s3 = new AWS.S3();
 const BUCKET_NAME = "serverless-jwt-authorizer-bucket-dev";
 const subFolder = "images";
 
-module.exports.updloadonS3 = async (file) => {
+module.exports.updloadonS3 = async (file, extension) => {
   try {
     const decodedFile = Buffer.from(file, "base64");
     // const decodedFile = Buffer.from(base64File.replace(/^data:image\/\w+;base64,/, ""), "base64");
     const params = {
       Bucket: BUCKET_NAME,
-      Key: `${subFolder}/${uuidv4()}.jpeg`,
+      Key: `${subFolder}/${uuidv4()}.${extension}`,
       Body: decodedFile,
-      ContentType: "image/jpeg",
+      ContentType: `image/${extension}`,
     };
 
     const uploadResult = await s3.upload(params).promise();

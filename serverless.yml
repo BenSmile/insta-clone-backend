@@ -72,24 +72,7 @@ functions:
           path: upload
           method: post
           cors: true
-#          binaryMediaTypes:
-#            - '*/*'
-          apigwBinary:
-            types:
-#              - '*/*'
 
-#          binaryMediaTypes:
-#            - '*/*'
-#          headers:
-#            - Content-Type:
-#                multipart/form-data
-
-#          authorizer:
-#            name: verify-token
-#            identitySource: method.request.header.Authorization
-#            resultTtlInSeconds: 3600
-#          binaryMediaTypes:
-#            - '*/*'
 
   findUsers:
     handler: functions/findUsers.handler
