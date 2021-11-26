@@ -19,6 +19,22 @@ module.exports.handler = async (event) => {
 
     try {
 
+        if (!event.body) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: "Empty body" }),
+            };
+        }
+
+        if (!event.headers.Authorization) {
+            return {
+                statusCode: 403,
+                body: JSON.stringify({ message: "Plz, provide an token" }),
+            };
+        }
+        const userObj = await getUserFromToken(event.headers.Authorization);
+
+
 
         const parsedBody = JSON.parse(event.body);
         console.log('caption -> ', parsedBody.caption);
@@ -31,7 +47,7 @@ module.exports.handler = async (event) => {
             medias: [imgPath],
         };
 
-        await createPost(post, 'userObj.email');
+        await createPost(post, userObj.email);
 
         return {
             statusCode: 200,
