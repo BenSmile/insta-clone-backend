@@ -118,10 +118,10 @@ functions:
           path: me
           method: get
           cors: true
-          authorizer:
-            name: verify-token
-            identitySource: method.request.header.Authorization
-            resultTtlInSeconds: 3600
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
 
   login:
     handler: functions/login.handler
@@ -163,10 +163,7 @@ functions:
           path: posts
           method: post
           cors: true
-#          authorizer:
-#            name: verify-token
-#            identitySource: method.request.header.Authorization
-#            resultTtlInSeconds: 3600
+
 
 #  updatePost:
 #    handler: functions/posts.update
@@ -187,10 +184,10 @@ functions:
           path: posts/{postId}
           method: delete
           cors: true
-          authorizer:
-            name: verify-token
-            identitySource: method.request.header.Authorization
-            resultTtlInSeconds: 3600
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
 
   sendOtp:
     handler: functions/login.sendOtp
@@ -217,10 +214,10 @@ functions:
           path: likePost
           method: post
           cors: true
-          authorizer:
-            name: verify-token
-            identitySource: method.request.header.Authorization
-            resultTtlInSeconds: 3600
+#          authorizer:
+#            name: verify-token
+#            identitySource: method.request.header.Authorization
+#            resultTtlInSeconds: 3600
 
 resources:
   Resources:

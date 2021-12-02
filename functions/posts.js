@@ -143,6 +143,14 @@ module.exports.like = async function (event) {
 module.exports.delete = async function (event) {
     try {
         console.log('event -> ', event);
+
+        if (!event.headers.Authorization) {
+            return {
+                statusCode: 403,
+                body: JSON.stringify({message: "Not authorized"}),
+            };
+        }
+
         const postId = event.pathParameters.postId;
 
         if (event.headers.Authorization) {
